@@ -55,6 +55,10 @@ class HashMap {
         // Key was not found in this bucket
         return null;
     }
+
+    has(key){
+        return this.get(key) !== null;       
+    }
 }
 
 let hm = new HashMap();
@@ -66,3 +70,4 @@ hm.set('here it is', 'second');
 hm.set('hello', 'another val');
 console.log(hm.buckets);
 console.log(hm.get('hello'));
+console.log(hm.has('good'));

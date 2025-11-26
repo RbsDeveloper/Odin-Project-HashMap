@@ -125,21 +125,37 @@ class HashMap {
         }
         return valuesCollection; 
     }
+
+    entries() {
+        let entries = [];
+    
+        for(const bucket of this.buckets){
+
+            if(bucket){
+                for(const element of bucket){
+                    entries.push([element.key, element.value]);
+                }
+            }
+        }
+        return entries;
+    }
 }
 
 let hm = new HashMap();
 // console.log(hm.buckets);
 hm.set('here it is', 'first');
 // console.log(hm.buckets);
-hm.set('here it is', 'second');
+hm.set('good', 'day');
 // console.log(hm.buckets);
 hm.set('hello', 'another val');
 console.log(hm.buckets);
 console.log(hm.get('hello'));
 // console.log(hm.has('good'));
-console.log(hm.remove('hello'));
+// console.log(hm.remove('hello'));
 console.log(hm.buckets);
 console.log(hm.length());
 // hm.clear();
 // console.log(hm.buckets);
 console.log(hm.keys())
+console.log(hm.values());
+console.log(hm.entries());

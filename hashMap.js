@@ -59,6 +59,29 @@ class HashMap {
     has(key){
         return this.get(key) !== null;       
     }
+
+    remove(key){
+        const bucketIdx = this.hash(key);
+        let targetIdx = 0
+
+        // No bucket = nothing to remove
+        if(!this.buckets[bucketIdx]) return false;
+        // Search bucket for matching key
+        for(const element of this.buckets[bucketIdx]){
+            // Key found → remove it
+            if(element.key === key){
+                this.buckets[bucketIdx].splice(targetIdx, 1)
+                // If bucket becomes empty, reset to null
+                if(this.buckets[bucketIdx].length === 0){
+                    this.buckets[bucketIdx] = null;
+                }
+                return true
+            }
+                targetIdx++ // move to next index
+        }
+
+        return false; // key not found
+    }
 }
 
 let hm = new HashMap();
@@ -70,4 +93,6 @@ hm.set('here it is', 'second');
 hm.set('hello', 'another val');
 console.log(hm.buckets);
 console.log(hm.get('hello'));
-console.log(hm.has('good'));
+// console.log(hm.has('good'));
+console.log(hm.remove('hello'));
+console.log(hm.buckets);

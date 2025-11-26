@@ -110,6 +110,21 @@ class HashMap {
         }
         return keysCollection; 
     }
+
+    values() {
+        let valuesCollection = [];
+        // Go through each bucket in the hashmap
+        for(const bucket of this.buckets){
+            // Only iterate if bucket is not null
+            if(bucket){
+                // Push the value of each element inside the valuesColletion
+                for(const element of bucket){
+                    valuesCollection.push(element.value);
+                }
+            }
+        }
+        return valuesCollection; 
+    }
 }
 
 let hm = new HashMap();

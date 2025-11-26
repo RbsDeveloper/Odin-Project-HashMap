@@ -95,6 +95,21 @@ class HashMap {
         this.buckets = new Array(this.capacity).fill(null); // reset all buckets
         this.size = 0;
     }
+
+    keys() {
+        let keysCollection = [];
+        // Go through each bucket in the hashmap
+        for(const bucket of this.buckets){
+            // Only iterate if bucket is not null
+            if(bucket){
+                // Push the key of each element inside the keysColletion
+                for(const element of bucket){
+                    keysCollection.push(element.key);
+                }
+            }
+        }
+        return keysCollection; 
+    }
 }
 
 let hm = new HashMap();
@@ -110,5 +125,6 @@ console.log(hm.get('hello'));
 console.log(hm.remove('hello'));
 console.log(hm.buckets);
 console.log(hm.length());
-hm.clear();
-console.log(hm.buckets);
+// hm.clear();
+// console.log(hm.buckets);
+console.log(hm.keys())

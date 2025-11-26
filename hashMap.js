@@ -90,6 +90,11 @@ class HashMap {
     length(){
         return this.size;
     }
+
+    clear(){
+        this.buckets = new Array(this.capacity).fill(null); // reset all buckets
+        this.size = 0;
+    }
 }
 
 let hm = new HashMap();
@@ -105,3 +110,5 @@ console.log(hm.get('hello'));
 console.log(hm.remove('hello'));
 console.log(hm.buckets);
 console.log(hm.length());
+hm.clear();
+console.log(hm.buckets);

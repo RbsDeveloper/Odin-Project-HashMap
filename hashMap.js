@@ -26,7 +26,9 @@ class HashMap {
         // If the bucket is empty we create a new one and store key/value
         if(!this.buckets[bucketIdx]){
             this.buckets[bucketIdx] = [{key, value}];
-            return}
+            this.size++
+            return
+        }
         
         // If the bucket exists we iterate through its elements to check for the same key
         for(const element of this.buckets[bucketIdx]){
@@ -39,6 +41,7 @@ class HashMap {
         
         // If we finish the loop with no match that means the key is new, so we push it into the bucket
         this.buckets[bucketIdx].push({key, value})
+        this.size++
     }
 
     get(key){
@@ -75,12 +78,17 @@ class HashMap {
                 if(this.buckets[bucketIdx].length === 0){
                     this.buckets[bucketIdx] = null;
                 }
+                this.size--;
                 return true
             }
                 targetIdx++ // move to next index
         }
 
         return false; // key not found
+    }
+
+    length(){
+        return this.size;
     }
 }
 
@@ -96,3 +104,4 @@ console.log(hm.get('hello'));
 // console.log(hm.has('good'));
 console.log(hm.remove('hello'));
 console.log(hm.buckets);
+console.log(hm.length());

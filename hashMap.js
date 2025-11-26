@@ -27,6 +27,9 @@ class HashMap {
         if(!this.buckets[bucketIdx]){
             this.buckets[bucketIdx] = [{key, value}];
             this.size++
+
+            if(this.size / this.capacity > this.loadFactor) this.resize()
+            
             return
         }
         
@@ -42,6 +45,8 @@ class HashMap {
         // If we finish the loop with no match that means the key is new, so we push it into the bucket
         this.buckets[bucketIdx].push({key, value})
         this.size++
+        if(this.size / this.capacity > this.loadFactor) this.resize()
+            
     }
 
     get(key){
@@ -139,23 +144,41 @@ class HashMap {
         }
         return entries;
     }
+
+    resize(){
+        this.capacity *= 2; // 1. Double the bucket count
+        const oldBuckets = this.buckets; // 2. Keep reference to old storage
+        this.buckets = new Array(this.capacity).fill(null); // 3. Allocate new, larger table
+        this.size = 0; // 4. Reset size
+
+        // 5. Reinsert everything using set() to recalc indexes
+        for(const bucket of oldBuckets){
+            if(bucket){
+                for(const element of bucket){
+                    this.set(element.key, element.value)
+                }
+            }
+        }
+    }
 }
 
-let hm = new HashMap();
-// console.log(hm.buckets);
-hm.set('here it is', 'first');
-// console.log(hm.buckets);
-hm.set('good', 'day');
-// console.log(hm.buckets);
-hm.set('hello', 'another val');
-console.log(hm.buckets);
-console.log(hm.get('hello'));
-// console.log(hm.has('good'));
-// console.log(hm.remove('hello'));
-console.log(hm.buckets);
-console.log(hm.length());
-// hm.clear();
-// console.log(hm.buckets);
-console.log(hm.keys())
-console.log(hm.values());
-console.log(hm.entries());
+const test = new HashMap();
+test.set('apple', 'red')
+test.set('banana', 'yellow')
+test.set('carrot', 'orange')
+test.set('dog', 'brown')
+test.set('elephant', 'gray')
+test.set('frog', 'green')
+test.set('grape', 'purple')
+test.set('hat', 'black')
+test.set('ice cream', 'white')
+test.set('jacket', 'blue')
+test.set('kite', 'pink')
+test.set('lion', 'golden')
+
+// console.log(test.buckets);
+
+test.set('frog', 'fire orange');
+console.log(test.buckets);
+test.set('moon', 'silver')
+console.log(test.buckets)

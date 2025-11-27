@@ -181,4 +181,11 @@ test.set('lion', 'golden')
 test.set('frog', 'fire orange');
 console.log(test.buckets);
 test.set('moon', 'silver')
-console.log(test.buckets)
+// console.log(test.buckets)
+
+console.log(test.has('hat'))
+console.log(test.remove('frog'));
+console.log(test.length())
+console.log(test.keys());
+console.log(test.values());
+console.log(test.entries())
